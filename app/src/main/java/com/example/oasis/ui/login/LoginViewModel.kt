@@ -1,4 +1,4 @@
-package com.example.oasis.viewModel
+package com.example.oasis.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

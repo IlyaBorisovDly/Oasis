@@ -1,14 +1,11 @@
-package com.example.oasis.view
+package com.example.oasis.ui.workout
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.oasis.Exercise
-import com.example.oasis.ExerciseAdapter
-import com.example.oasis.R
-import com.example.oasis.Workout
+import com.example.oasis.model.Exercise
 import com.example.oasis.databinding.ActivityWorkoutBinding
 
 class WorkoutActivity : AppCompatActivity() {
@@ -18,7 +15,7 @@ class WorkoutActivity : AppCompatActivity() {
         val binding = ActivityWorkoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent: Intent = getIntent()
+        val intent: Intent = intent
         val workout: Workout = intent.getSerializableExtra("WorkoutEnum") as Workout
 
         val recyclerView: RecyclerView = binding.recyclerView

@@ -1,10 +1,9 @@
-package com.example.oasis.view
+package com.example.oasis.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.oasis.R
 import com.example.oasis.databinding.ActivityLoginBinding
-import com.example.oasis.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

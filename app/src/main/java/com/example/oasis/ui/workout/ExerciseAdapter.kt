@@ -1,10 +1,12 @@
-package com.example.oasis
+package com.example.oasis.ui.workout
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
+import com.example.oasis.R
+import com.example.oasis.model.Exercise
 import com.example.oasis.databinding.InstanceExerciseCardBinding
 
 class ExerciseAdapter(private val exercises: ArrayList<Exercise>): RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>() {
@@ -47,19 +49,27 @@ class ExerciseAdapter(private val exercises: ArrayList<Exercise>): RecyclerView.
 
             when (exercise!!.count) {
                 0 -> {
-                    card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_1)
+                    card.background = AppCompatResources.getDrawable(context,
+                        R.drawable.fill_card_1
+                    )
                     exercise!!.count++
                 }
                 1 -> {
-                    card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_2)
+                    card.background = AppCompatResources.getDrawable(context,
+                        R.drawable.fill_card_2
+                    )
                     exercise!!.count++
                 }
                 2 -> {
-                    card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_3)
+                    card.background = AppCompatResources.getDrawable(context,
+                        R.drawable.fill_card_3
+                    )
                     exercise!!.count++
                 }
                 3 -> {
-                    card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_4)
+                    card.background = AppCompatResources.getDrawable(context,
+                        R.drawable.fill_card_4
+                    )
                     exercise!!.count++
                 }
                 else -> exercise!!.count++
