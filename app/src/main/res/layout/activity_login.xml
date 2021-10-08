@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -22,7 +22,7 @@
     <EditText
         android:id="@+id/editTextLogin"
         android:layout_width="250dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/edit_text_style"
         android:ems="10"
@@ -37,7 +37,7 @@
     <EditText
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="250dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_style"
         android:ems="10"
@@ -67,6 +67,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/registration"
         android:textColor="@color/gray"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:layout_editor_absoluteX="163dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

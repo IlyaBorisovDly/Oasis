@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Oasis">
         <activity
-            android:name=".view.WorkoutActivity"
+            android:name=".ui.registration.RegistrationActivity"
             android:exported="true" />
         <activity
-            android:name=".view.LoginActivity"
-            android:exported="true"/>
+            android:name=".ui.workout.WorkoutActivity"
+            android:exported="true" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".ui.login.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
