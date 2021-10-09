@@ -1,64 +1,75 @@
 package com.example.oasis.ui.registration
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import android.widget.Button
+import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
-import com.example.oasis.model.User
 import com.example.oasis.databinding.ActivityRegistrationBinding
-import com.example.oasis.ui.UserViewModel
+import com.example.oasis.ui.workout.WorkoutActivity
 import com.example.oasis.utils.showToast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class RegistrationActivity : AppCompatActivity() {
+
     private lateinit var registrationViewModel: RegistrationViewModel
-    private lateinit var userViewModel: UserViewModel
+
+    private lateinit var auth: FirebaseAuth
+
+    private lateinit var nameField: EditText
+    private lateinit var emailField: EditText
+    private lateinit var passwordField: EditText
+    private lateinit var registerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val nameEditText = binding.nameEditText
-        val loginEditText = binding.loginEditText
-        val passwordEditText = binding.passwordEditText
-        val registerButton = binding.registerButton
-
         registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        registrationViewModel.name.observe(this, Observer {
-            nameEditText.setText(it)
-        })
+        auth = Firebase.auth
 
-        registrationViewModel.login.observe(this, Observer {
-            loginEditText.setText(it)
-        })
+        nameField = binding.nameEditText
+        emailField = binding.loginEditText
+        passwordField = binding.passwordEditText
+        registerButton = binding.registerButton
 
-        registrationViewModel.password.observe(this, Observer {
-            passwordEditText.setText(it)
-        })
+        initializeObservables()
 
         registerButton.setOnClickListener {
-            val name = nameEditText.text.toString()
-            val login = loginEditText.text.toString()
-            val password = passwordEditText.text.toString()
+            val name = nameField.text.toString()
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
 
-            register(name, login, password)
+            register(auth, name, email, password)
         }
     }
 
-    private fun register(name: String, login: String, password: String) {
-        if (!checkData(name, login, password)) {
-            Toast.makeText(this,"Fuck u dumass", Toast.LENGTH_SHORT).show()
-        } else {
-            val user = User(0, name, login, password)
-            userViewModel.addUser(user)
-            showToast("Success")
+    private fun register(auth: FirebaseAuth, name: String, email: String, password: String){
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                startActivity(Intent(this, WorkoutActivity::class.java))
+            } else {
+                showToast("Registration failed")
+            }
         }
     }
 
-    private fun checkData(name: String, login: String, password: String): Boolean {
-        return (name.isNotBlank() && login.isNotBlank() && password.isNotBlank())
+    private fun initializeObservables() {
+        registrationViewModel.name.observe(this, {
+            nameField.setText(it)
+        })
+
+        registrationViewModel.login.observe(this, {
+            emailField.setText(it)
+        })
+
+        registrationViewModel.password.observe(this, {
+            passwordField.setText(it)
+        })
     }
 }

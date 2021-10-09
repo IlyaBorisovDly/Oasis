@@ -1,13 +1,8 @@
 package com.example.oasis.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "user_table")
 data class User(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val name: String,
-    val login: String,
-    val password: String
+    var name: String,
+    var login: String,
+    var password: String,
+    var bestResults: Map<String, Double> = mutableMapOf()
 )

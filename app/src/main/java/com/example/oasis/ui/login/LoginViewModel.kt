@@ -8,4 +8,7 @@ class LoginViewModel: ViewModel() {
 
     private val _login = MutableLiveData<String>().apply { value = "" }
     val login: LiveData<String> = _login
+
+    private val _password = MutableLiveData<String>().apply { value = "" }
+    val password: LiveData<String> = _password
 }

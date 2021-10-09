@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -46,11 +47,16 @@ dependencies {
     // Material CardView
     implementation 'com.google.android.material:material:1.4.0'
 
+    // Firebase components
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.2'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+
     // Room components
-    implementation "androidx.room:room-runtime:2.3.0"
-    kapt "androidx.room:room-compiler:2.3.0"
-    implementation "androidx.room:room-ktx:2.3.0"
-    androidTestImplementation "androidx.room:room-testing:2.3.0"
+//    implementation "androidx.room:room-runtime:2.3.0"
+
+//    kapt "androidx.room:room-compiler:2.3.0"
+//    implementation "androidx.room:room-ktx:2.3.0"
+//    androidTestImplementation "androidx.room:room-testing:2.3.0"
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
