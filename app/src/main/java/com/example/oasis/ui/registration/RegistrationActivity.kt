@@ -7,10 +7,13 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import com.example.oasis.databinding.ActivityRegistrationBinding
+import com.example.oasis.model.User
+import com.example.oasis.ui.main.MainActivity
 import com.example.oasis.ui.workout.WorkoutActivity
 import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RegistrationActivity : AppCompatActivity() {
@@ -52,7 +55,15 @@ class RegistrationActivity : AppCompatActivity() {
     private fun register(auth: FirebaseAuth, name: String, email: String, password: String){
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                startActivity(Intent(this, WorkoutActivity::class.java))
+                val users = Firebase.database.getReference("Users")
+                val userId = auth.currentUser?.uid ?: "Error"
+
+                val newUser = User(name, email)
+                users.child(userId).child("Name").setValue(name)
+                users.child(userId).child("Email").setValue(email)
+                users.child(userId).child("BestResults").setValue(newUser.bestResults)
+
+                startActivity(Intent(this, MainActivity::class.java))
             } else {
                 showToast("Registration failed")
             }

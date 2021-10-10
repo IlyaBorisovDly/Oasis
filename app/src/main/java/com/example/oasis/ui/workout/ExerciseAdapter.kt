@@ -11,7 +11,7 @@ import com.example.oasis.model.Exercise
 import com.example.oasis.databinding.InstanceExerciseCardBinding
 import com.example.oasis.ui.BottomSheetFragment
 
-class ExerciseAdapter(private val exercises: ArrayList<Exercise>): RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>() {
+class ExerciseAdapter(private val exercises: List<Exercise>): RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseHolder {
         val itemBinding = InstanceExerciseCardBinding
