@@ -36,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        loginField = binding.editTextLogin
-        passwordField = binding.editTextPassword
-        loginButton = binding.loginButton
-        registerTextView = binding.registerTextView
+        loginField = binding.editTextLoginEmail
+        passwordField = binding.editTextLoginPassword
+        loginButton = binding.buttonLogin
+        registerTextView = binding.textViewRegister
 
         initializeObservables()
 
@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
         registerTextView.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
+            finish()
         }
     }
 
@@ -62,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
@@ -69,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 startActivity(Intent(this, WorkoutActivity::class.java))
+                finish()
             } else {
                 showToast("SignIn failed")
             }

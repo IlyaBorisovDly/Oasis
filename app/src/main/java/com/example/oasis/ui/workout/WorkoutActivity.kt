@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.oasis.model.Exercise
 import com.example.oasis.databinding.ActivityWorkoutBinding
 
 class WorkoutActivity : AppCompatActivity() {
@@ -22,6 +21,6 @@ class WorkoutActivity : AppCompatActivity() {
         val exercisesList = WorkoutFactory.createWorkout(application, workout)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ExerciseAdapter(exercisesList)
+        recyclerView.adapter = WorkoutAdapter(exercisesList)
     }
 }

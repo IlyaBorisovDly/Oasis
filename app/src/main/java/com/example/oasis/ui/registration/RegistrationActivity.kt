@@ -39,10 +39,10 @@ class RegistrationActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        nameField = binding.nameEditText
-        emailField = binding.loginEditText
-        passwordField = binding.passwordEditText
-        registerButton = binding.registerButton
+        nameField = binding.editTextRegisterName
+        emailField = binding.editTextRegisterEmail
+        passwordField = binding.editTextRegisterPassword
+        registerButton = binding.buttonRegister
 
         initializeObservables()
 
