@@ -3,7 +3,6 @@ package com.example.oasis.ui.workout
 import android.app.Application
 import android.util.Log
 import com.example.oasis.model.Exercise
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,16 +23,16 @@ class WorkoutFactory {
             this.application = application
             this.workout = workout
 
-            return getExercisesList()
+            return loadExercisesList()
         }
 
-        private fun getExercisesList(): List<Exercise> {
+        private fun loadExercisesList(): List<Exercise> {
             val exercisesList = mutableListOf<Exercise>()
 
             val userId = Firebase.auth.currentUser?.uid ?: "Error"
             val currentUser = Firebase.database.getReference("Users").child(userId)
 
-            val jsonArray = getJsonArray()
+            val jsonArray = loadJsonArray()
 
             val bestResults = mutableMapOf<String, Double>()
             val reference = currentUser.child("BestResults")
@@ -62,7 +61,7 @@ class WorkoutFactory {
             return exercisesList
         }
 
-        private fun getJsonArray(): JSONArray {
+        private fun loadJsonArray(): JSONArray {
             val file = application.assets.open("workouts.json")
             val text = file.bufferedReader().use { it.readText() }
             val array = JSONArray(text)

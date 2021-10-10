@@ -10,11 +10,14 @@ import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
 import com.example.oasis.ui.main.MainActivity
 import com.example.oasis.ui.workout.WorkoutActivity
+import com.example.oasis.ui.workout.WorkoutFactory
 import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.json.JSONArray
+import org.json.JSONObject
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -57,17 +60,39 @@ class RegistrationActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val users = Firebase.database.getReference("Users")
                 val userId = auth.currentUser?.uid ?: "Error"
+                val resultsMap = createResultsMap()
+                val user = User(name, email, resultsMap)
 
-                val newUser = User(name, email)
                 users.child(userId).child("Name").setValue(name)
                 users.child(userId).child("Email").setValue(email)
-                users.child(userId).child("BestResults").setValue(newUser.bestResults)
+                users.child(userId).child("BestResults").setValue(user.bestResults)
 
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
                 showToast("Registration failed")
             }
         }
+    }
+
+    private fun createResultsMap(): Map<String, Double> {
+        val resultsMap = mutableMapOf<String, Double>()
+
+        val file = application.assets.open("workouts.json")
+        val text = file.bufferedReader().use { it.readText() }
+        val array = JSONArray(text)
+
+        for (i in 0 until array.length()) {
+            val jsonObject = JSONObject(array[i].toString())
+            val exercises  = jsonObject.getJSONArray("exercises")
+
+            for (j in 0 until exercises.length()) {
+                val innerObject = JSONObject(exercises[j].toString())
+                val key = innerObject.get("name").toString()
+                resultsMap[key] = 0.0
+            }
+        }
+
+        return resultsMap
     }
 
     private fun initializeObservables() {
