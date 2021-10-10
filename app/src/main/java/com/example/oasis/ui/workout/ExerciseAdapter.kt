@@ -3,11 +3,13 @@ package com.example.oasis.ui.workout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.example.oasis.R
 import com.example.oasis.model.Exercise
 import com.example.oasis.databinding.InstanceExerciseCardBinding
+import com.example.oasis.ui.BottomSheetFragment
 
 class ExerciseAdapter(private val exercises: ArrayList<Exercise>): RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>() {
 
@@ -46,6 +48,12 @@ class ExerciseAdapter(private val exercises: ArrayList<Exercise>): RecyclerView.
             val context = itemView.context
 
             val card = binding.exerciseCardView
+
+            val sManager = (context as AppCompatActivity).supportFragmentManager
+
+            BottomSheetFragment().apply {
+                show(sManager, "Tag")
+            }
 
             when (exercise!!.count) {
                 0 -> {
