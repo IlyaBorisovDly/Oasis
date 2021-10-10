@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Oasis</string>
-    <string name="registration"><u>Регистрация</u></string>
+    <string name="email">E-mail</string>
+    <string name="go_back">Вернуться назад</string>
+    <string name="login">Войти</string>
+    <string name="name">Имя</string>
+    <string name="or">ИЛИ</string>
+    <string name="password">Пароль</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="registration">Регистрация</string>
+    <string name="registration_underlined"><u>Регистрация</u></string>
+    <string name="log_out">Выйти</string>
 </resources>

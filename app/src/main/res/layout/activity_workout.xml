@@ -17,7 +17,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/go_back"
             android:src="@drawable/ic_arrow_left" />
     </androidx.cardview.widget.CardView>
 
