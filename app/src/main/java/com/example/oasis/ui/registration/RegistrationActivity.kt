@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
 import com.example.oasis.ui.main.MainActivity
-import com.example.oasis.ui.workout.WorkoutActivity
-import com.example.oasis.ui.workout.WorkoutFactory
 import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -74,8 +72,8 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun createResultsMap(): Map<String, Double> {
-        val resultsMap = mutableMapOf<String, Double>()
+    private fun createResultsMap(): Map<String, Int> {
+        val resultsMap = mutableMapOf<String, Int>()
 
         val file = application.assets.open("workouts.json")
         val text = file.bufferedReader().use { it.readText() }
@@ -88,7 +86,7 @@ class RegistrationActivity : AppCompatActivity() {
             for (j in 0 until exercises.length()) {
                 val innerObject = JSONObject(exercises[j].toString())
                 val key = innerObject.get("name").toString()
-                resultsMap[key] = 0.0
+                resultsMap[key] = 0
             }
         }
 

@@ -18,6 +18,7 @@ class WorkoutActivity : AppCompatActivity() {
         val workout: Workout = intent.getSerializableExtra("WorkoutEnum") as Workout
 
         val recyclerView: RecyclerView = binding.recyclerView
+        // TODO: WorkoutFactory должен возвращать Workout
         val exercisesList = WorkoutFactory.createWorkout(application, workout)
 
         recyclerView.layoutManager = LinearLayoutManager(this)

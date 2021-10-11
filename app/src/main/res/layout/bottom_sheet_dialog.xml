@@ -21,6 +21,7 @@
             android:inputType="numberSigned"
             android:textColorHint="@color/gray"
             android:textSize="24sp"
+            android:maxLength="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button"
+            android:id="@+id/buttonApply"
             android:layout_width="115dp"
             android:layout_height="35dp"
             android:layout_marginTop="64dp"
@@ -77,6 +78,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultEditText" />
+
+        <TextView
+            android:id="@+id/textViewWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toTopOf="@+id/resultEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

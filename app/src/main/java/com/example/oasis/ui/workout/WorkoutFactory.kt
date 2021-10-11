@@ -34,14 +34,14 @@ class WorkoutFactory {
 
             val jsonArray = loadJsonArray()
 
-            val bestResults = mutableMapOf<String, Double>()
+            val bestResults = mutableMapOf<String, Int>()
             val reference = currentUser.child("BestResults")
 
             reference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (child in snapshot.children) {
                         val key = child.key.toString()
-                        val value = child.value.toString().toDouble()
+                        val value = child.value.toString().toInt()
                         bestResults[key] = value
                     }
                 }
@@ -53,7 +53,7 @@ class WorkoutFactory {
 
             for (i in 0 until jsonArray.length()) {
                 val name = JSONObject(jsonArray[i].toString()).getString("name")
-                val bestResult = bestResults[name] ?: 0.0
+                val bestResult = bestResults[name] ?: 0
 
                 exercisesList.add(Exercise(name, bestResult))
             }
