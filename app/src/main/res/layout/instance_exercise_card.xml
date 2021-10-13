@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/exerciseCardView"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="70dp"
     android:layout_marginLeft="16dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="16dp"
     app:strokeColor="@color/black"
     app:strokeWidth="0.5dp">
 

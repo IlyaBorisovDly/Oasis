@@ -22,6 +22,13 @@ class WorkoutActivity : AppCompatActivity() {
         val exercisesList = WorkoutFactory.createWorkout(application, workout)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+        //recyclerView.adapter = WorkoutAdapter(exercisesList)
         recyclerView.adapter = WorkoutAdapter(exercisesList)
+
+
+    }
+
+    private fun showWarning() {
+
     }
 }
