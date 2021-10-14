@@ -94,11 +94,7 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
         private lateinit var exercise: Exercise
 
         private val exerciseBestResult: TextView = binding.bestResultTextView
-        private lateinit var exerciseCount: TextView
-
-        private lateinit var dialogBinding: BottomSheetDialogBinding
-        private lateinit var result: EditText
-        private lateinit var warning: TextView
+        private val exerciseCount: TextView = binding.countTextView
 
         init {
             binding.exerciseCardView.setOnClickListener{ onCardClick() }
@@ -106,8 +102,6 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
 
         fun bind(exercise: Exercise) {
             this.exercise = exercise
-
-            exerciseCount = binding.countTextView
 
             binding.exerciseNameTextView.text = exercise.name
             exerciseBestResult.text = exercise.bestResult.toString()
@@ -119,22 +113,27 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
         private fun onCardClick() {
             val context = itemView.context
             val card = binding.exerciseCardView
-            val dialog = BottomSheetDialog(context)
 
-            dialogBinding = BottomSheetDialogBinding
+            val dialogBinding = BottomSheetDialogBinding
                 .inflate((context as AppCompatActivity).layoutInflater)
 
-            result = dialogBinding.resultEditText
-            warning = dialogBinding.textViewWarning
+            val decrement = dialogBinding.decreaseTextView
+            val increment = dialogBinding.increaseTextView
+            val applyButton = dialogBinding.buttonApply
+
+            val resultField = dialogBinding.resultEditText
+            val warningMessage = dialogBinding.textViewWarning
+
+            val dialog = BottomSheetDialog(context)
 
             dialog.setContentView(dialogBinding.bottomSheet)
 
-            dialogBinding.decreaseTextView.setOnClickListener { decreaseResult() }
-            dialogBinding.increaseTextView.setOnClickListener { increaseResult() }
+            decrement.setOnClickListener { decreaseResult(resultField, warningMessage) }
+            increment.setOnClickListener { increaseResult(resultField, warningMessage) }
 
-            dialogBinding.buttonApply.setOnClickListener {
-                if (isInputChecked()) {
-                    applyResult(card)
+            applyButton.setOnClickListener {
+                if (isInputChecked(resultField, warningMessage)) {
+                    applyResult(card, resultField)
                     dialog.dismiss()
                 }
             }
@@ -142,8 +141,8 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
             dialog.show()
         }
 
-        private fun applyResult(card: MaterialCardView) {
-            val result = result.text.toString().toInt()
+        private fun applyResult(card: MaterialCardView, resultField: EditText) {
+            val result = resultField.text.toString().toInt()
             val previousBest = exercise.bestResult
             val nextCount = "${++exercise.count} / 4"
 
@@ -151,7 +150,6 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
                 val best = "$result кг"
                 exercise.bestResult = result
                 exerciseBestResult.text = best
-                // TODO: Прописать добавление в БД (после окончания тренировки)
             }
 
             exerciseCount.text = nextCount
@@ -170,47 +168,47 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
             }
         }
 
-        private fun increaseResult() {
-            val text = result.text?.toString() ?: ""
+        private fun increaseResult(resultField: EditText, warningMessage: TextView) {
+            val text = resultField.text?.toString() ?: ""
 
-            warning.text = ""
+            warningMessage.text = ""
 
             if (text.isNotBlank() && text.toInt() < 9999) {
                 val number = text.toInt() + 1
-                result.setText(number.toString())
+                resultField.setText(number.toString())
             } else if (text.isBlank()) {
-                warning.text = "Введите число"
+                warningMessage.text = "Введите число"
             } else if (text.toInt() >= 9999) {
-                warning.text = "Введено слишком большое число"
+                warningMessage.text = "Введено слишком большое число"
             }
         }
 
-        private fun decreaseResult() {
-            val text = result.text?.toString() ?: ""
+        private fun decreaseResult(resultField: EditText, warningMessage: TextView) {
+            val text = resultField.text?.toString() ?: ""
 
-            warning.text = ""
+            warningMessage.text = ""
 
             if (text.isNotBlank() && text.toInt() >= 1) {
                 val number = text.toInt() - 1
-                result.setText(number.toString())
+                resultField.setText(number.toString())
             } else if (text.isBlank()) {
-                warning.text = "Введите число"
+                warningMessage.text = "Введите число"
             } else if (text.toInt() <= 0) {
-                warning.text = "Число не может быть меньше нуля"
+                warningMessage.text = "Число не может быть меньше нуля"
             }
         }
 
-        private fun isInputChecked(): Boolean {
-            val text = result.text?.toString() ?: ""
+        private fun isInputChecked(resultField: EditText, warningMessage: TextView): Boolean {
+            val text = resultField.text?.toString() ?: ""
 
-            warning.text = ""
+            warningMessage.text = ""
 
             if (text.isNotBlank() && text.toInt() >= 0) {
                 return true
             } else if (text.isBlank()) {
-                warning.text = "Введите число"
+                warningMessage.text = "Введите число"
             } else if (text.toInt() < 0) {
-                warning.text = "Число не может быть меньше нуля"
+                warningMessage.text = "Число не может быть меньше нуля"
             }
 
             return false

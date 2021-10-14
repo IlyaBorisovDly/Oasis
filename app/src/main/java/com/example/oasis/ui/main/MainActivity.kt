@@ -4,19 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
-import com.example.oasis.ui.workout.Workout
+import com.example.oasis.ui.workout.WorkoutType
 import com.example.oasis.databinding.ActivityMainBinding
-import com.example.oasis.model.User
 import com.example.oasis.ui.login.LoginActivity
 import com.example.oasis.ui.settings.SettingsActivity
 import com.example.oasis.ui.workout.WorkoutActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,9 +32,9 @@ class MainActivity : AppCompatActivity() {
         workoutCard2 = binding.cardView2
         workoutCard3 = binding.cardView3
 
-        workoutCard1.setOnClickListener { startWorkout(Workout.FIRST) }
-        workoutCard2.setOnClickListener { startWorkout(Workout.SECOND) }
-        workoutCard3.setOnClickListener { startWorkout(Workout.THIRD) }
+        workoutCard1.setOnClickListener { startWorkout(WorkoutType.FIRST) }
+        workoutCard2.setOnClickListener { startWorkout(WorkoutType.SECOND) }
+        workoutCard3.setOnClickListener { startWorkout(WorkoutType.THIRD) }
 
         binding.profileImageView.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
@@ -56,11 +51,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun startWorkout(workout: Workout) {
-        val intent = Intent(this, WorkoutActivity::class.java)
-
-        intent.putExtra("WorkoutEnum", workout)
+    private fun startWorkout(workoutType: WorkoutType) {
+        val intent = Intent(this, WorkoutActivity()::class.java)
+        intent.putExtra("WorkoutType", workoutType)
         startActivity(intent)
     }
 }
