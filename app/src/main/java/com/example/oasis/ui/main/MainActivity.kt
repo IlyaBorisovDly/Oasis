@@ -6,12 +6,17 @@ import android.os.Bundle
 import androidx.cardview.widget.CardView
 import com.example.oasis.ui.workout.Workout
 import com.example.oasis.databinding.ActivityMainBinding
+import com.example.oasis.model.User
 import com.example.oasis.ui.login.LoginActivity
 import com.example.oasis.ui.settings.SettingsActivity
 import com.example.oasis.ui.workout.WorkoutActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 

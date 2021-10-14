@@ -2,7 +2,6 @@ package com.example.oasis.ui.workout
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -20,12 +19,6 @@ import com.example.oasis.databinding.InstanceWorkoutButtonBinding
 import com.example.oasis.model.Exercise
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -82,35 +75,9 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
             .show()
     }
 
-    // TODO: Написать отдельный класс для получения map из БД
+    // TODO: Написать отдельный класс для получения map из Room
     private fun saveResults() {
-        val userId = Firebase.auth.currentUser?.uid ?: "Error"
-        val currentUser = Firebase.database.getReference("Users").child(userId)
-        val reference = currentUser.child("BestResults")
 
-        val map = mutableMapOf<String, Int>()
-
-        reference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (child in snapshot.children) {
-                    val key = child.key.toString()
-                    val value = child.value.toString().toInt()
-
-                    map[key] = value
-                }
-
-                exerciseHolders.forEach {
-                    val exercise = it.getExercise()
-                    map[exercise.name] = exercise.bestResult
-                }
-
-                reference.setValue(map)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("firebase", "WorkoutFactory: onCancelled failure")
-            }
-        })
     }
 
     class ButtonHolder(
@@ -139,7 +106,6 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
 
         fun bind(exercise: Exercise) {
             this.exercise = exercise
-
 
             exerciseCount = binding.countTextView
 

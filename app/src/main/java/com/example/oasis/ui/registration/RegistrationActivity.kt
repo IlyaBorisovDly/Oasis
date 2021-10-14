@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import com.example.oasis.data.remote.FirebaseRepository
 import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
 import com.example.oasis.ui.main.MainActivity
 import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.json.JSONArray
 import org.json.JSONObject
@@ -54,16 +54,14 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun register(auth: FirebaseAuth, name: String, email: String, password: String){
+
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                val users = Firebase.database.getReference("Users")
-                val userId = auth.currentUser?.uid ?: "Error"
                 val resultsMap = createResultsMap()
+                val userId = auth.uid ?: "Error"
                 val user = User(name, email, resultsMap)
 
-                users.child(userId).child("Name").setValue(name)
-                users.child(userId).child("Email").setValue(email)
-                users.child(userId).child("BestResults").setValue(user.bestResults)
+                FirebaseRepository.addUser(userId, user)
 
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
@@ -72,7 +70,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun createResultsMap(): Map<String, Int> {
+    private fun createResultsMap(): MutableMap<String, Int> {
         val resultsMap = mutableMapOf<String, Int>()
 
         val file = application.assets.open("workouts.json")

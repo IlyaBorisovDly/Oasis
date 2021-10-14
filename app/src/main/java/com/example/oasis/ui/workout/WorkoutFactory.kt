@@ -4,10 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.example.oasis.model.Exercise
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.json.JSONArray
 import org.json.JSONObject
@@ -30,26 +26,14 @@ class WorkoutFactory {
             val exercisesList = mutableListOf<Exercise>()
 
             val userId = Firebase.auth.currentUser?.uid ?: "Error"
-            val currentUser = Firebase.database.getReference("Users").child(userId)
+            // val currentUser = Firebase.database.getReference("users").child(userId)
+
 
             val jsonArray = loadJsonArray()
 
             val bestResults = mutableMapOf<String, Int>()
-            val reference = currentUser.child("BestResults")
 
-            reference.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (child in snapshot.children) {
-                        val key = child.key.toString()
-                        val value = child.value.toString().toInt()
-                        bestResults[key] = value
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.d("firebase", "WorkoutFactory: onCancelled failure")
-                }
-            })
+            Log.d("firebase", "loadExercisesList: $bestResults")
 
             for (i in 0 until jsonArray.length()) {
                 val name = JSONObject(jsonArray[i].toString()).getString("name")
