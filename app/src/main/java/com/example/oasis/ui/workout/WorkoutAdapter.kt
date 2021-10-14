@@ -77,7 +77,9 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
 
     // TODO: Написать отдельный класс для получения map из Room
     private fun saveResults() {
-
+        exerciseHolders.forEach {
+            it.getExercise()
+        }
     }
 
     class ButtonHolder(
