@@ -2,6 +2,7 @@ package com.example.oasis.ui.workout
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.oasis.R
@@ -20,7 +22,8 @@ import com.example.oasis.model.Exercise
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
 
-class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WorkoutAdapter(private val exercises: LiveData<List<Exercise>>):
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val exerciseHolders = mutableListOf<ExerciseHolder>()
 
@@ -39,9 +42,9 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         if (holder is ExerciseHolder) {
-            val itemExercise = exercises[position]
+            val itemExercise = exercises.value!![position]
+            Log.d("adapter", "onBindViewHolder: itemExercise = $itemExercise")
             holder.bind(itemExercise)
             exerciseHolders.add(holder)
         } else if (holder is ButtonHolder) {
@@ -50,11 +53,11 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
     }
 
     override fun getItemCount(): Int {
-        return exercises.size + 1
+        return exercises.value!!.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < exercises.size) {
+        return if (position < exercises.value!!.size) {
             R.layout.instance_exercise_card
         } else {
             R.layout.instance_workout_button
@@ -95,19 +98,28 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
 
         private lateinit var exercise: Exercise
 
+        private val card = binding.exerciseCardView
+        private val exerciseName: TextView = binding.exerciseNameTextView
         private val exerciseBestResult: TextView = binding.bestResultTextView
         private val exerciseCount: TextView = binding.countTextView
 
+
         init {
-            binding.exerciseCardView.setOnClickListener{ onCardClick() }
+            card.setOnClickListener{ onCardClick() }
         }
 
         fun bind(exercise: Exercise) {
             this.exercise = exercise
 
-            binding.exerciseNameTextView.text = exercise.name
-            exerciseBestResult.text = exercise.bestResult.toString()
-            exerciseCount.text = "0 / 4"
+            exerciseName.text = exercise.name
+
+            val bestResult = "${exercise.bestResult} кг."
+            exerciseBestResult.text = bestResult
+
+            val count = "${exercise.count} / 4"
+            exerciseCount.text = count
+
+            fillCardBackground(card)
         }
 
         fun getExercise() = exercise
@@ -155,7 +167,6 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
             }
 
             exerciseCount.text = nextCount
-
             fillCardBackground(card)
         }
 
@@ -163,11 +174,13 @@ class WorkoutAdapter(private val exercises: List<Exercise>) : RecyclerView.Adapt
             val context = itemView.context
 
             when (exercise.count) {
-                1 -> card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_1)
-                2 -> card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_2)
-                3 -> card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_3)
-                4 -> card.background = AppCompatResources.getDrawable(context, R.drawable.fill_card_4)
+                1 -> exercise.background = R.drawable.fill_card_1
+                2 -> exercise.background = R.drawable.fill_card_2
+                3 -> exercise.background = R.drawable.fill_card_3
+                4 -> exercise.background = R.drawable.fill_card_4
             }
+
+            card.background = AppCompatResources.getDrawable(context, exercise.background)
         }
 
         private fun increaseResult(resultField: EditText, warningMessage: TextView) {

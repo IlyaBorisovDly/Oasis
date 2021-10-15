@@ -2,11 +2,14 @@ package com.example.oasis.ui.workout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.oasis.databinding.ActivityWorkoutBinding
 
 class WorkoutActivity : AppCompatActivity() {
+
+    private lateinit var workoutViewModel: WorkoutViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +25,16 @@ class WorkoutActivity : AppCompatActivity() {
                 WorkoutType.FIRST
             }
 
-        val recyclerView: RecyclerView = binding.recyclerView
         val workoutNameTextView = binding.textViewWorkoutName
+        val recyclerView: RecyclerView = binding.recyclerView
 
-        val workout = WorkoutFactory.createWorkout(application, workoutType)
+       workoutViewModel =
+           ViewModelProvider(this, WorkoutViewModelFactory(application, workoutType))
+               .get(WorkoutViewModel::class.java)
 
-        workoutNameTextView.text = workout.name
+        workoutNameTextView.text = workoutViewModel.workoutName.value
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = WorkoutAdapter(workout.exercises)
+        recyclerView.adapter = WorkoutAdapter(workoutViewModel.exercisesList)
     }
 }

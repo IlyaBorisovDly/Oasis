@@ -1,3 +1,10 @@
 package com.example.oasis.model
 
-data class Exercise(val name: String, var bestResult: Int, var count: Int = 0)
+import com.example.oasis.R
+
+data class Exercise(
+    val name: String,
+    var bestResult: Int,
+    var count: Int = 0,
+    var background: Int = R.color.white
+)

@@ -1,23 +1,24 @@
 package com.example.oasis.ui.workout
 
 import android.app.Application
+import androidx.annotation.NonNull
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.oasis.model.Exercise
 import com.example.oasis.model.Workout
 import org.json.JSONArray
 import org.json.JSONObject
 
-object WorkoutFactory {
+class WorkoutViewModelFactory(
+    private val application: Application,
+    private val workoutType: WorkoutType
+    ): ViewModelProvider.AndroidViewModelFactory(application) {
 
-    private lateinit var application: Application
-    private lateinit var workoutType: WorkoutType
-
-    fun createWorkout(application: Application, workoutType: WorkoutType): Workout {
-        this.application = application
-        this.workoutType = workoutType
-
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val exercises = loadExercisesList()
-
-        return Workout(workoutType.title, exercises)
+        val workout = Workout(workoutType.title, exercises)
+        return WorkoutViewModel(application, workout) as T
     }
 
     private fun loadExercisesList(): List<Exercise> {
