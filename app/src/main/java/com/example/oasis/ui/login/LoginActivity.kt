@@ -44,8 +44,8 @@ class LoginActivity : AppCompatActivity() {
         initializeObservables()
 
         loginButton.setOnClickListener {
-            val login = loginField.text.toString()
-            val password = passwordField.text.toString()
+            val login = loginViewModel.login.toString()
+            val password = loginViewModel.password.toString()
 
             signIn(auth, login, password)
         }

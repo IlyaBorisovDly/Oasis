@@ -45,9 +45,9 @@ class RegistrationActivity : AppCompatActivity() {
         initializeObservables()
 
         registerButton.setOnClickListener {
-            val name = nameField.text.toString()
-            val email = emailField.text.toString()
-            val password = passwordField.text.toString()
+            val name = registrationViewModel.name.toString()
+            val email = registrationViewModel.email.toString()
+            val password = registrationViewModel.password.toString()
 
             register(auth, name, email, password)
         }
@@ -71,11 +71,11 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun createResultsMap(): MutableMap<String, Int> {
-        val resultsMap = mutableMapOf<String, Int>()
-
         val file = application.assets.open("workouts.json")
         val text = file.bufferedReader().use { it.readText() }
         val array = JSONArray(text)
+
+        val resultsMap = mutableMapOf<String, Int>()
 
         for (i in 0 until array.length()) {
             val jsonObject = JSONObject(array[i].toString())
@@ -96,7 +96,7 @@ class RegistrationActivity : AppCompatActivity() {
             nameField.setText(it)
         })
 
-        registrationViewModel.login.observe(this, {
+        registrationViewModel.email.observe(this, {
             emailField.setText(it)
         })
 
