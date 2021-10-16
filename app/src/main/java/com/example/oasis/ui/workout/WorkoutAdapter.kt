@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.oasis.R
@@ -22,7 +21,7 @@ import com.example.oasis.model.Exercise
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
 
-class WorkoutAdapter(private val exercises: LiveData<List<Exercise>>):
+class WorkoutAdapter(private val exercises: List<Exercise>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val exerciseHolders = mutableListOf<ExerciseHolder>()
@@ -43,7 +42,7 @@ class WorkoutAdapter(private val exercises: LiveData<List<Exercise>>):
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ExerciseHolder) {
-            val itemExercise = exercises.value!![position]
+            val itemExercise = exercises[position]
             Log.d("adapter", "onBindViewHolder: itemExercise = $itemExercise")
             holder.bind(itemExercise)
             exerciseHolders.add(holder)
@@ -53,11 +52,11 @@ class WorkoutAdapter(private val exercises: LiveData<List<Exercise>>):
     }
 
     override fun getItemCount(): Int {
-        return exercises.value!!.size + 1
+        return exercises.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < exercises.value!!.size) {
+        return if (position < exercises.size) {
             R.layout.instance_exercise_card
         } else {
             R.layout.instance_workout_button
@@ -78,7 +77,7 @@ class WorkoutAdapter(private val exercises: LiveData<List<Exercise>>):
             .show()
     }
 
-    // TODO: Написать отдельный класс для получения map из Room
+    // TODO: Написать отдельный класс для получения map
     private fun saveResults() {
         exerciseHolders.forEach {
             it.getExercise()
@@ -102,7 +101,6 @@ class WorkoutAdapter(private val exercises: LiveData<List<Exercise>>):
         private val exerciseName: TextView = binding.exerciseNameTextView
         private val exerciseBestResult: TextView = binding.bestResultTextView
         private val exerciseCount: TextView = binding.countTextView
-
 
         init {
             card.setOnClickListener{ onCardClick() }

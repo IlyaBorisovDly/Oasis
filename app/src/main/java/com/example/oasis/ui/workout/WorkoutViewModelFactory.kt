@@ -1,7 +1,6 @@
 package com.example.oasis.ui.workout
 
 import android.app.Application
-import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.oasis.model.Exercise

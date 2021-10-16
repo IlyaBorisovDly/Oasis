@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
-import com.example.oasis.data.remote.FirebaseRepository
+import com.example.oasis.data.Repository
 import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
 import com.example.oasis.ui.main.MainActivity
@@ -61,7 +61,7 @@ class RegistrationActivity : AppCompatActivity() {
                 val userId = auth.uid ?: "Error"
                 val user = User(name, email, resultsMap)
 
-                FirebaseRepository.addUser(userId, user)
+                Repository.addUser(userId, user)
 
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
