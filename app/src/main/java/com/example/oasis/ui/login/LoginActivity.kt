@@ -15,7 +15,9 @@ import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
@@ -70,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn(auth: FirebaseAuth, email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                startActivity(Intent(this, WorkoutActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
                 showToast("SignIn failed")

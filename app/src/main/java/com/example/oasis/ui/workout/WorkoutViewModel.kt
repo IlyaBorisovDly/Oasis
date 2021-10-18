@@ -2,26 +2,21 @@ package com.example.oasis.ui.workout
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.oasis.data.Repository
 import com.example.oasis.model.Exercise
-import com.example.oasis.model.Workout
+import kotlinx.coroutines.launch
 
-class WorkoutViewModel(application: Application, private val workout: Workout): AndroidViewModel(application) {
+class WorkoutViewModel(application: Application, private val workoutType: WorkoutType) : AndroidViewModel(application) {
 
-    private val _exercisesList = MutableLiveData<List<Exercise>>().apply { value = workout.exercises }
-    var exercisesList: LiveData<List<Exercise>> = _exercisesList
+    var exercisesList = MutableLiveData<List<Exercise>>().apply { value = mutableListOf() }
 
-    fun getAllBestResults() = Repository.getBestResults()
+    fun getBestResults(workoutType: WorkoutType) = Repository.getBestResults(workoutType)
 
-    fun getExercisesNames(): List<String> {
-        val list = mutableListOf<String>()
-
-        workout.exercises.forEach {
-            list.add(it.name)
+    fun updateBestResults(map: Map<String, Int>, workoutType: WorkoutType) {
+        viewModelScope.launch {
+            Repository.updateBestResults(map, workoutType)
         }
-
-        return list
     }
 }

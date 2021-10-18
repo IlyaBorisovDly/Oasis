@@ -15,19 +15,4 @@ class RegistrationViewModel(application: Application): AndroidViewModel(applicat
 
     private val _password = MutableLiveData<String>().apply { value = "" }
     val password: LiveData<String> = _password
-
-//    private val repository: UserRepository
-
-//    init {
-//        val userDao = UserDatabase.getDatabase(application).userDao()
-//        repository = UserRepository(userDao)
-//        // readBestResults = repository.readBestResults
-//    }
-
-//    fun addUser(user: RoomUser) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.addUser(user)
-//            Log.d("firebase", "addUser: successful!!!")
-//        }
-//    }
 }

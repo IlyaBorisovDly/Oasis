@@ -12,7 +12,9 @@ import com.example.oasis.ui.workout.WorkoutActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth

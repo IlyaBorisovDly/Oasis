@@ -9,7 +9,9 @@ import com.example.oasis.databinding.ActivitySettingsBinding
 import com.example.oasis.ui.login.LoginActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var userName: TextView

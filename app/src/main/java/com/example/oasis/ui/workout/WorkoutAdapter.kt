@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.oasis.R
@@ -20,9 +21,14 @@ import com.example.oasis.databinding.InstanceWorkoutButtonBinding
 import com.example.oasis.model.Exercise
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
+import kotlinx.coroutines.InternalCoroutinesApi
 
-class WorkoutAdapter(private val exercises: List<Exercise>):
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+@InternalCoroutinesApi
+class WorkoutAdapter(
+    private val exercises: MutableLiveData<List<Exercise>>,
+    private val listener: WorkoutActivity.Listener
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val exerciseHolders = mutableListOf<ExerciseHolder>()
 
@@ -32,6 +38,7 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
         return if (viewType == R.layout.instance_exercise_card) {
             itemBinding = InstanceExerciseCardBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
+
             ExerciseHolder(itemBinding)
         } else {
             itemBinding = InstanceWorkoutButtonBinding
@@ -42,8 +49,8 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ExerciseHolder) {
-            val itemExercise = exercises[position]
-            Log.d("adapter", "onBindViewHolder: itemExercise = $itemExercise")
+            val itemExercise = exercises.value!![position]
+
             holder.bind(itemExercise)
             exerciseHolders.add(holder)
         } else if (holder is ButtonHolder) {
@@ -52,11 +59,11 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
     }
 
     override fun getItemCount(): Int {
-        return exercises.size + 1
+        return exercises.value!!.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < exercises.size) {
+        return if (position < exercises.value!!.size) {
             R.layout.instance_exercise_card
         } else {
             R.layout.instance_workout_button
@@ -64,24 +71,30 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
     }
 
     private fun showAlertDialog(context: Context) {
-        val builder = AlertDialog.Builder(context)
-        builder
+        val dialogBuilder = AlertDialog.Builder(context)
+
+        dialogBuilder
             .setTitle("Закончить тренировку?")
             .setCancelable(true)
             .setNegativeButton("Отмена") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("Ок") { dialog, _ ->
+                uploadBestResults()
                 dialog.dismiss()
-                saveResults()
                 (context as Activity).finish()
             }
-            .show()
+
+        dialogBuilder.show()
     }
 
-    // TODO: Написать отдельный класс для получения map
-    private fun saveResults() {
-        exerciseHolders.forEach {
-            it.getExercise()
+    private fun uploadBestResults() {
+        val map = mutableMapOf<String, Int>()
+
+        exerciseHolders.forEach { holder ->
+            val exercise = holder.getExercise()
+            map[exercise.name] = exercise.bestResult
         }
+
+        listener.onResultsApplied(map)
     }
 
     class ButtonHolder(
@@ -91,9 +104,7 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
         val button: Button = binding.button
     }
 
-    class ExerciseHolder(
-        private val binding: InstanceExerciseCardBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    class ExerciseHolder(binding: InstanceExerciseCardBinding): RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var exercise: Exercise
 
@@ -102,50 +113,32 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
         private val exerciseBestResult: TextView = binding.bestResultTextView
         private val exerciseCount: TextView = binding.countTextView
 
-        init {
-            card.setOnClickListener{ onCardClick() }
-        }
-
         fun bind(exercise: Exercise) {
             this.exercise = exercise
 
-            exerciseName.text = exercise.name
-
             val bestResult = "${exercise.bestResult} кг."
-            exerciseBestResult.text = bestResult
-
             val count = "${exercise.count} / 4"
+
+            exerciseName.text = exercise.name
+            exerciseBestResult.text = bestResult
             exerciseCount.text = count
 
-            fillCardBackground(card)
+            card.setOnClickListener{ onCardClick() }
+
+            fillCardBackground()
         }
 
         fun getExercise() = exercise
 
         private fun onCardClick() {
             val context = itemView.context
-            val card = binding.exerciseCardView
+            val dialog = MyBottomSheetDialog(context)
 
-            val dialogBinding = BottomSheetDialogBinding
-                .inflate((context as AppCompatActivity).layoutInflater)
+            dialog.applyButton.setOnClickListener {
+                val input: String? = dialog.getInput()
 
-            val decrement = dialogBinding.decreaseTextView
-            val increment = dialogBinding.increaseTextView
-            val applyButton = dialogBinding.buttonApply
-
-            val resultField = dialogBinding.resultEditText
-            val warningMessage = dialogBinding.textViewWarning
-
-            val dialog = BottomSheetDialog(context)
-
-            dialog.setContentView(dialogBinding.bottomSheet)
-
-            decrement.setOnClickListener { decreaseResult(resultField, warningMessage) }
-            increment.setOnClickListener { increaseResult(resultField, warningMessage) }
-
-            applyButton.setOnClickListener {
-                if (isInputChecked(resultField, warningMessage)) {
-                    applyResult(card, resultField)
+                if (input != null) {
+                    applyResult(input.toInt())
                     dialog.dismiss()
                 }
             }
@@ -153,8 +146,7 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
             dialog.show()
         }
 
-        private fun applyResult(card: MaterialCardView, resultField: EditText) {
-            val result = resultField.text.toString().toInt()
+        private fun applyResult(result: Int) {
             val previousBest = exercise.bestResult
             val nextCount = "${++exercise.count} / 4"
 
@@ -165,10 +157,10 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
             }
 
             exerciseCount.text = nextCount
-            fillCardBackground(card)
+            fillCardBackground()
         }
 
-        private fun fillCardBackground(card: MaterialCardView) {
+        private fun fillCardBackground() {
             val context = itemView.context
 
             when (exercise.count) {
@@ -179,52 +171,6 @@ class WorkoutAdapter(private val exercises: List<Exercise>):
             }
 
             card.background = AppCompatResources.getDrawable(context, exercise.background)
-        }
-
-        private fun increaseResult(resultField: EditText, warningMessage: TextView) {
-            val text = resultField.text?.toString() ?: ""
-
-            warningMessage.text = ""
-
-            if (text.isNotBlank() && text.toInt() < 9999) {
-                val number = text.toInt() + 1
-                resultField.setText(number.toString())
-            } else if (text.isBlank()) {
-                warningMessage.text = "Введите число"
-            } else if (text.toInt() >= 9999) {
-                warningMessage.text = "Введено слишком большое число"
-            }
-        }
-
-        private fun decreaseResult(resultField: EditText, warningMessage: TextView) {
-            val text = resultField.text?.toString() ?: ""
-
-            warningMessage.text = ""
-
-            if (text.isNotBlank() && text.toInt() >= 1) {
-                val number = text.toInt() - 1
-                resultField.setText(number.toString())
-            } else if (text.isBlank()) {
-                warningMessage.text = "Введите число"
-            } else if (text.toInt() <= 0) {
-                warningMessage.text = "Число не может быть меньше нуля"
-            }
-        }
-
-        private fun isInputChecked(resultField: EditText, warningMessage: TextView): Boolean {
-            val text = resultField.text?.toString() ?: ""
-
-            warningMessage.text = ""
-
-            if (text.isNotBlank() && text.toInt() >= 0) {
-                return true
-            } else if (text.isBlank()) {
-                warningMessage.text = "Введите число"
-            } else if (text.toInt() < 0) {
-                warningMessage.text = "Число не может быть меньше нуля"
-            }
-
-            return false
         }
     }
 }
