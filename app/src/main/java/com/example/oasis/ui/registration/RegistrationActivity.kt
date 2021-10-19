@@ -11,6 +11,7 @@ import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
 import com.example.oasis.ui.main.MainActivity
 import com.example.oasis.WorkoutType
+import com.example.oasis.ui.login.LoginActivity
 import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -18,6 +19,12 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.json.JSONArray
 import org.json.JSONObject
+import android.R
+
+import android.app.ActivityOptions
+
+
+
 
 @InternalCoroutinesApi
 class RegistrationActivity : AppCompatActivity() {
@@ -56,6 +63,13 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
     private fun initializeObservables() {
         registrationViewModel.name.observe(this, {
             nameField.setText(it)
@@ -80,6 +94,7 @@ class RegistrationActivity : AppCompatActivity() {
                 Repository.addUser(userId, user)
 
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             } else {
                 showToast("Registration failed")
             }

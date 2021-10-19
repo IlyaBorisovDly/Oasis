@@ -46,8 +46,8 @@ class LoginActivity : AppCompatActivity() {
         initializeObservables()
 
         loginButton.setOnClickListener {
-            val login = loginViewModel.login.toString()
-            val password = loginViewModel.password.toString()
+            val login = loginField.text.toString()
+            val password = passwordField.text.toString()
 
             signIn(auth, login, password)
         }
@@ -58,16 +58,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        val currentUser = auth.currentUser
+//
+//        if (currentUser != null) {
+//            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+//        }
+//    }
 
     private fun signIn(auth: FirebaseAuth, email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityMainBinding
 import com.example.oasis.ui.login.LoginActivity
@@ -17,18 +18,24 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-
     private lateinit var workoutCard1: CardView
     private lateinit var workoutCard2: CardView
     private lateinit var workoutCard3: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
+
+        val currentUser = Firebase.auth.currentUser
+
+        if (currentUser == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = Firebase.auth
 
         workoutCard1 = binding.cardView1
         workoutCard2 = binding.cardView2
@@ -40,16 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.profileImageView.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val currentUser = auth.currentUser
-
-        if (currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 
