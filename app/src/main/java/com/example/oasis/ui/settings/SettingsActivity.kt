@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.example.oasis.databinding.ActivitySettingsBinding
 import com.example.oasis.ui.login.LoginActivity
 import com.example.oasis.ui.main.MainActivity
@@ -15,8 +16,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var userName: TextView
-    private lateinit var userEmail: TextView
+    private lateinit var settingsViewModel: SettingsViewModel
+
+    private lateinit var nameField: TextView
+    private lateinit var emailField: TextView
     private lateinit var signOutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +27,16 @@ class SettingsActivity : AppCompatActivity() {
         val binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val auth = Firebase.auth
-
-        userName = binding.textViewUsername
-        userEmail = binding.textViewUserEmail
+        nameField = binding.textViewNameOutput
+        emailField = binding.textViewEmailOutput
         signOutButton = binding.signOutbutton
 
+        settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+
+        initializeObservers()
+
         signOutButton.setOnClickListener {
-            auth.signOut()
+            Firebase.auth.signOut()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
@@ -42,5 +47,15 @@ class SettingsActivity : AppCompatActivity() {
 
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+    }
+
+    private fun initializeObservers() {
+        settingsViewModel.name.observe(this, {
+            nameField.text = it
+        })
+
+        settingsViewModel.email.observe(this, {
+            emailField.text = it
+        })
     }
 }
