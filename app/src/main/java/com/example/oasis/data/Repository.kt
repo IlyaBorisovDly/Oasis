@@ -29,6 +29,19 @@ object Repository {
             }
     }
 
+    suspend fun getUserNameAndEmail(): List<String> {
+        val currentUser = Firebase.auth.currentUser
+        val id = currentUser?.uid ?: throw java.lang.NullPointerException("User id is null")
+        val db = Firebase.firestore
+
+        val task = db.collection("users").document(id).get().await()
+
+        val name = task.data?.get("name").toString()
+        val email = task.data?.get("email").toString()
+
+        return listOf(name, email)
+    }
+
     suspend fun updateBestResults(map: Map<String, Int>, workoutType: WorkoutType) {
         val db = Firebase.firestore
         val id = Firebase.auth.currentUser!!.uid

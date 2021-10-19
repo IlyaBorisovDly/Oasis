@@ -2,14 +2,12 @@ package com.example.oasis.ui.workout.adapters
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.oasis.ExerciseBottomSheetDialog
@@ -160,10 +158,10 @@ class WorkoutAdapter(
             val context = itemView.context
 
             when (exercise.count) {
-                1 -> exercise.background = R.drawable.fill_card_1
-                2 -> exercise.background = R.drawable.fill_card_2
-                3 -> exercise.background = R.drawable.fill_card_3
-                4 -> exercise.background = R.drawable.fill_card_4
+                1 -> exercise.background = R.drawable.background_card_1
+                2 -> exercise.background = R.drawable.background_card_2
+                3 -> exercise.background = R.drawable.background_card_3
+                4 -> exercise.background = R.drawable.background_card_4
             }
 
             card.background = AppCompatResources.getDrawable(context, exercise.background)
