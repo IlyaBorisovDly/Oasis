@@ -1,4 +1,4 @@
-package com.example.oasis.ui.workout
+package com.example.oasis
 
 import android.content.Context
 import android.widget.EditText
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.oasis.databinding.BottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class MyBottomSheetDialog(context: Context): BottomSheetDialog(context) {
+class ExerciseBottomSheetDialog(context: Context): BottomSheetDialog(context) {
 
     private val dialogBinding = BottomSheetDialogBinding
         .inflate((context as AppCompatActivity).layoutInflater)

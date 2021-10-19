@@ -1,4 +1,4 @@
-package com.example.oasis.ui.workout
+package com.example.oasis
 
 enum class WorkoutType(val id: Int, val title: String) {
     FIRST   (1, "Тренировка 1"),

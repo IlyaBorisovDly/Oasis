@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
-import com.example.oasis.ui.workout.WorkoutType
+import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityMainBinding
 import com.example.oasis.ui.login.LoginActivity
 import com.example.oasis.ui.settings.SettingsActivity

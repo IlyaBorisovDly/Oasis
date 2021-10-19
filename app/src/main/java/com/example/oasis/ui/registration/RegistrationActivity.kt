@@ -3,7 +3,6 @@ package com.example.oasis.ui.registration
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +10,7 @@ import com.example.oasis.data.Repository
 import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
 import com.example.oasis.ui.main.MainActivity
-import com.example.oasis.ui.workout.WorkoutType
+import com.example.oasis.WorkoutType
 import com.example.oasis.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

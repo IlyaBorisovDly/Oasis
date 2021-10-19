@@ -3,7 +3,7 @@ package com.example.oasis.data
 import android.util.Log
 import com.example.oasis.State
 import com.example.oasis.model.User
-import com.example.oasis.ui.workout.WorkoutType
+import com.example.oasis.WorkoutType
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -43,10 +43,12 @@ object Repository {
         }
 
         val data = task.data?.get(reference) as MutableMap<String, Int>
+        Log.d("firebase", "updateBestResults: got data $data")
 
         map.forEach {
             data[it.key] = it.value
         }
+        Log.d("firebase", "updateBestResults: Start updating")
 
         db.collection("users")
             .document(id)

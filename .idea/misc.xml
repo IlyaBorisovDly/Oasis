@@ -27,6 +27,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.26731305465991995" />
         <entry key="app/src/main/res/layout/instance_exercise_card.xml" value="0.25" />
         <entry key="app/src/main/res/layout/instance_exercise_card_empty.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/instance_shimmer_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/instance_workout_button.xml" value="0.24791666666666667" />
         <entry key="app/src/main/res/layout/instance_workout_card.xml" value="0.461212065370752" />
         <entry key="app/src/main/res/layout/registration.xml" value="0.3098958333333333" />

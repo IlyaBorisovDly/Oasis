@@ -1,4 +1,4 @@
-package com.example.oasis.ui.workout
+package com.example.oasis.ui.workout.adapters
 
 import android.app.Activity
 import android.content.Context
@@ -6,27 +6,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.oasis.ExerciseBottomSheetDialog
 import com.example.oasis.R
-import com.example.oasis.databinding.BottomSheetDialogBinding
 import com.example.oasis.databinding.InstanceExerciseCardBinding
 import com.example.oasis.databinding.InstanceWorkoutButtonBinding
 import com.example.oasis.model.Exercise
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.card.MaterialCardView
+import com.example.oasis.ui.workout.WorkoutActivity
 import kotlinx.coroutines.InternalCoroutinesApi
-
 
 @InternalCoroutinesApi
 class WorkoutAdapter(
-    private val exercises: MutableLiveData<List<Exercise>>,
+    private val exercises: List<Exercise>,
     private val listener: WorkoutActivity.Listener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -49,7 +45,7 @@ class WorkoutAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ExerciseHolder) {
-            val itemExercise = exercises.value!![position]
+            val itemExercise = exercises[position]
 
             holder.bind(itemExercise)
             exerciseHolders.add(holder)
@@ -59,11 +55,11 @@ class WorkoutAdapter(
     }
 
     override fun getItemCount(): Int {
-        return exercises.value!!.size + 1
+        return exercises.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < exercises.value!!.size) {
+        return if (position < exercises.size) {
             R.layout.instance_exercise_card
         } else {
             R.layout.instance_workout_button
@@ -132,7 +128,7 @@ class WorkoutAdapter(
 
         private fun onCardClick() {
             val context = itemView.context
-            val dialog = MyBottomSheetDialog(context)
+            val dialog = ExerciseBottomSheetDialog(context)
 
             dialog.applyButton.setOnClickListener {
                 val input: String? = dialog.getInput()
