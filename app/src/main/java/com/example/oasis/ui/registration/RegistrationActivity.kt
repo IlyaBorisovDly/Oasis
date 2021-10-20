@@ -19,12 +19,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.json.JSONArray
 import org.json.JSONObject
-import android.R
-
-import android.app.ActivityOptions
-
-
-
 
 @InternalCoroutinesApi
 class RegistrationActivity : AppCompatActivity() {
@@ -91,7 +85,8 @@ class RegistrationActivity : AppCompatActivity() {
                 val userId = auth.uid ?: "Error"
                 val user = createUser(name, email)
 
-                Repository.addUser(userId, user)
+                val repository = Repository()
+                repository.addUser(userId, user)
 
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

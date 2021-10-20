@@ -17,7 +17,9 @@ class SettingsViewModel: ViewModel() {
 
     init {
         viewModelScope.launch {
-            val list = Repository.getUserNameAndEmail()
+
+            val repository = Repository()
+            val list = repository.getUserNameAndEmail()
 
             _name.apply { value = list[0] }
             _email.apply { value = list[1] }

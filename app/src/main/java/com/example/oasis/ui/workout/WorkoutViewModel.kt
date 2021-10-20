@@ -14,6 +14,8 @@ import org.json.JSONObject
 
 class WorkoutViewModel(application: Application, private val workoutType: WorkoutType) : AndroidViewModel(application) {
 
+    private val repository = Repository()
+
     private val _exercisesList = MutableLiveData<List<Exercise>>()
     val exercisesList: LiveData<List<Exercise>> = _exercisesList
 
@@ -23,7 +25,7 @@ class WorkoutViewModel(application: Application, private val workoutType: Workou
 
     fun updateBestResults(map: Map<String, Int>, workoutType: WorkoutType) {
         viewModelScope.launch {
-            Repository.updateBestResults(map, workoutType)
+            repository.updateBestResults(map, workoutType)
         }
     }
 
@@ -31,7 +33,7 @@ class WorkoutViewModel(application: Application, private val workoutType: Workou
 
         viewModelScope.launch {
 
-            Repository.getBestResults(workoutType).collect { state ->
+            repository.getBestResults(workoutType).collect { state ->
 
                 when (state) {
 

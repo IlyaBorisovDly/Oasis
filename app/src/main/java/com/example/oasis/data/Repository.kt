@@ -13,10 +13,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 
-object Repository {
+class Repository {
+
+    private val db = Firebase.firestore
+    private val currentUser = Firebase.auth.currentUser
+    private val id = currentUser?.uid ?: throw java.lang.NullPointerException("Repository: user is null")
 
     fun addUser(id : String, user: User) {
-        val db = Firebase.firestore
 
         db.collection("users")
             .document(id)
@@ -30,24 +33,17 @@ object Repository {
     }
 
     suspend fun getUserNameAndEmail(): List<String> {
-        val currentUser = Firebase.auth.currentUser
-        val id = currentUser?.uid ?: throw java.lang.NullPointerException("User id is null")
-        val db = Firebase.firestore
-
         val task = db.collection("users").document(id).get().await()
-
         val name = task.data?.get("name").toString()
         val email = task.data?.get("email").toString()
+
+        Log.d("firebase", "getUserNameAndEmail: name = $name, email = $email")
 
         return listOf(name, email)
     }
 
     suspend fun updateBestResults(map: Map<String, Int>, workoutType: WorkoutType) {
-        val db = Firebase.firestore
-        val id = Firebase.auth.currentUser!!.uid
-
         val task = db.collection("users").document(id).get().await()
-        Log.d("firebase", "updateBestResults: got task")
 
         val reference = when (workoutType) {
             WorkoutType.FIRST  -> "bestResults1"
@@ -77,9 +73,6 @@ object Repository {
     fun getBestResults(workoutType: WorkoutType) = flow {
 
         emit(State.loading())
-
-        val db = Firebase.firestore
-        val id = Firebase.auth.currentUser?.uid ?: throw NullPointerException("Repository: id is null")
 
         val task = db.collection("users").document(id).get().await()
 
