@@ -20,45 +20,34 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
-
-    private lateinit var auth: FirebaseAuth
-
-    private lateinit var loginField: EditText
-    private lateinit var passwordField: EditText
-    private lateinit var loginButton: Button
-    private lateinit var registerTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        auth = Firebase.auth
-
-        loginField = binding.editTextLoginEmail
-        passwordField = binding.editTextLoginPassword
-        loginButton = binding.buttonLogin
-        registerTextView = binding.textViewRegister
-
         initializeObservables()
 
-        loginButton.setOnClickListener {
-            val login = loginField.text.toString()
-            val password = passwordField.text.toString()
+        binding.buttonLogin.setOnClickListener {
+            val login = binding.editTextLoginEmail.text.toString()
+            val password = binding.editTextLoginPassword.text.toString()
 
-            signIn(auth, login, password)
+            signIn(login, password)
         }
 
-        registerTextView.setOnClickListener {
+        binding.textViewRegister.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
             finish()
         }
     }
 
-    private fun signIn(auth: FirebaseAuth, email: String, password: String) {
+    private fun signIn(email: String, password: String) {
+        val auth = Firebase.auth
+
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 startActivity(Intent(this, MainActivity::class.java))
@@ -71,11 +60,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initializeObservables() {
         loginViewModel.login.observe(this, {
-            loginField.setText(it)
+            binding.editTextLoginEmail.setText(it)
         })
 
         loginViewModel.password.observe(this, {
-            passwordField.setText(it)
+            binding.editTextLoginPassword.setText(it)
         })
     }
 }

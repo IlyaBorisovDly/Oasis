@@ -14,22 +14,19 @@ class ExerciseBottomSheetDialog(context: Context): BottomSheetDialog(context) {
 
     val applyButton = dialogBinding.buttonApply
 
-    private val decrement = dialogBinding.decreaseTextView
-    private val increment = dialogBinding.increaseTextView
-
     private val resultField = dialogBinding.resultEditText
     private val warningMessage = dialogBinding.textViewWarning
 
     init {
         setContentView(dialogBinding.bottomSheet)
 
-        decrement.setOnClickListener { decreaseResult(resultField, warningMessage) }
-        increment.setOnClickListener { increaseResult(resultField, warningMessage) }
+        dialogBinding.decreaseTextView.setOnClickListener { decreaseResult() }
+        dialogBinding.increaseTextView.setOnClickListener { increaseResult() }
     }
 
     fun getInput() = if (isInputChecked()) resultField.text.toString() else null
 
-    private fun decreaseResult(resultField: EditText, warningMessage: TextView) {
+    private fun decreaseResult() {
         val text = resultField.text?.toString() ?: ""
 
         warningMessage.text = ""
@@ -43,7 +40,8 @@ class ExerciseBottomSheetDialog(context: Context): BottomSheetDialog(context) {
             warningMessage.text = "Число не может быть меньше нуля"
         }
     }
-    private fun increaseResult(resultField: EditText, warningMessage: TextView) {
+
+    private fun increaseResult() {
         val text = resultField.text?.toString() ?: ""
 
         warningMessage.text = ""

@@ -3,9 +3,8 @@ package com.example.oasis.ui.registration
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import com.example.oasis.JsonReader
 import com.example.oasis.data.Repository
 import com.example.oasis.databinding.ActivityRegistrationBinding
 import com.example.oasis.model.User
@@ -13,47 +12,32 @@ import com.example.oasis.ui.main.MainActivity
 import com.example.oasis.WorkoutType
 import com.example.oasis.ui.login.LoginActivity
 import com.example.oasis.utils.showToast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.InternalCoroutinesApi
-import org.json.JSONArray
-import org.json.JSONObject
 
 @InternalCoroutinesApi
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var registrationViewModel: RegistrationViewModel
 
-    private lateinit var auth: FirebaseAuth
-
-    private lateinit var nameField: EditText
-    private lateinit var emailField: EditText
-    private lateinit var passwordField: EditText
-    private lateinit var registerButton: Button
+    private lateinit var binding: ActivityRegistrationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityRegistrationBinding.inflate(layoutInflater)
+        binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
 
-        auth = Firebase.auth
-
-        nameField = binding.editTextRegisterName
-        emailField = binding.editTextRegisterEmail
-        passwordField = binding.editTextRegisterPassword
-        registerButton = binding.buttonRegister
-
         initializeObservables()
 
-        registerButton.setOnClickListener {
-            val name = nameField.text.toString()
-            val email = emailField.text.toString()
-            val password = passwordField.text.toString()
+        binding.buttonRegister.setOnClickListener {
+            val name = binding.editTextRegisterName.text.toString()
+            val email = binding.editTextRegisterEmail.text.toString()
+            val password = binding.editTextRegisterPassword.text.toString()
 
-            register(auth, name, email, password)
+            register(name, email, password)
         }
     }
 
@@ -66,19 +50,20 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun initializeObservables() {
         registrationViewModel.name.observe(this, {
-            nameField.setText(it)
+            binding.editTextRegisterName.setText(it)
         })
 
         registrationViewModel.email.observe(this, {
-            emailField.setText(it)
+            binding.editTextRegisterEmail.setText(it)
         })
 
         registrationViewModel.password.observe(this, {
-            passwordField.setText(it)
+            binding.editTextRegisterPassword.setText(it)
         })
     }
 
-    private fun register(auth: FirebaseAuth, name: String, email: String, password: String){
+    private fun register(name: String, email: String, password: String){
+        val auth = Firebase.auth
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
@@ -97,35 +82,11 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun createUser(name: String, email: String): User {
-        val map1 = createResultsMap(WorkoutType.FIRST)
-        val map2 = createResultsMap(WorkoutType.SECOND)
-        val map3 = createResultsMap(WorkoutType.THIRD)
+
+        val map1 = JsonReader.getResultsMap(application, WorkoutType.FIRST)
+        val map2 = JsonReader.getResultsMap(application, WorkoutType.SECOND)
+        val map3 = JsonReader.getResultsMap(application, WorkoutType.THIRD)
 
         return User(name, email, map1, map2, map3)
     }
-
-    private fun createResultsMap(workoutType: WorkoutType): Map<String, Int> {
-        val resultsMap = mutableMapOf<String, Int>()
-
-        val file = application.assets.open("workouts.json")
-        val text = file.bufferedReader().use { it.readText() }
-        val array = JSONArray(text)
-
-        for (i in 0 until array.length()) {
-            val jsonObject = JSONObject(array[i].toString())
-
-            if (jsonObject.getInt("workoutId") == workoutType.id) {
-                val exercises  = jsonObject.getJSONArray("exercises")
-
-                for (j in 0 until exercises.length()) {
-                    val innerObject = JSONObject(exercises[j].toString())
-                    val key = innerObject.get("name").toString()
-                    resultsMap[key] = 0
-                }
-            }
-        }
-
-        return resultsMap
-    }
-
 }
