@@ -7,15 +7,13 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityMainBinding
 import com.example.oasis.ui.login.LoginActivity
-import com.example.oasis.ui.settings.SettingsActivity
 import com.example.oasis.ui.workout.WorkoutActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.*
 
 @InternalCoroutinesApi
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +34,9 @@ class MainActivity : AppCompatActivity() {
         binding.cardView2.setOnClickListener { startWorkout(WorkoutType.SECOND) }
         binding.cardView3.setOnClickListener { startWorkout(WorkoutType.THIRD) }
 
-        binding.profileImageView.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+        binding.signOutbutton.setOnClickListener {
+            Firebase.auth.signOut()
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }

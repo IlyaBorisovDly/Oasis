@@ -32,16 +32,6 @@ class Repository {
             }
     }
 
-    suspend fun getUserNameAndEmail(): List<String> {
-        val task = db.collection("users").document(id).get().await()
-        val name = task.data?.get("name").toString()
-        val email = task.data?.get("email").toString()
-
-        Log.d("firebase", "getUserNameAndEmail: name = $name, email = $email")
-
-        return listOf(name, email)
-    }
-
     suspend fun updateBestResults(map: Map<String, Int>, workoutType: WorkoutType) {
         val task = db.collection("users").document(id).get().await()
 
