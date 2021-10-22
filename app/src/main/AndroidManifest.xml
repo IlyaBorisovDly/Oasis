@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Oasis">
         <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.registration.RegistrationActivity"
             android:exported="true" />
         <activity
