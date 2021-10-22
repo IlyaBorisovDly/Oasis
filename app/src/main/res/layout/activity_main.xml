@@ -34,24 +34,44 @@
         app:strokeColor="@color/black"
         app:strokeWidth="0.5dp">
 
-        <TextView
-            android:id="@+id/workoutOneTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:text="@string/workout_1"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageViewBenchPress"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/gym_image_description"
-            app:srcCompat="@drawable/ic_workout_bench_press" />
+            <TextView
+                android:id="@+id/textViewWorkout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/workout_1"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDescription1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/workout_description_1"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="@+id/textViewWorkout1"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWorkout1" />
+
+            <ImageView
+                android:id="@+id/imageViewBenchPress"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/gym_image_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_workout_bench_press" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -68,24 +88,45 @@
         app:strokeColor="@color/black"
         app:strokeWidth="0.5dp">
 
-        <TextView
-            android:id="@+id/workoutTwoTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:text="@string/workout_2"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageViewBarbell"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/gym_image_description"
-            app:srcCompat="@drawable/ic_workout_barbell" />
+            <TextView
+                android:id="@+id/textViewWorkout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/workout_2"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDescription2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/workout_description_3"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="@+id/textViewWorkout2"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWorkout2" />
+
+            <ImageView
+                android:id="@+id/imageViewBarbell"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/gym_image_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_workout_barbell" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -102,32 +143,55 @@
         app:strokeColor="@color/black"
         app:strokeWidth="0.5dp">
 
-        <TextView
-            android:id="@+id/workoutThreeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:text="@string/workout_3"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageViewBars"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/gym_image_description"
-            app:srcCompat="@drawable/ic_workout_gym_machine" />
+            <TextView
+                android:id="@+id/textViewWorkout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/workout_3"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDescription3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/workout_description_2"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="@+id/textViewWorkout3"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWorkout3" />
+
+            <ImageView
+                android:id="@+id/imageViewBars"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/gym_image_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_workout_gym_machine" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signOutbutton"
+        android:id="@+id/buttonSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:background="@color/white"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="@string/log_out"
         android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"

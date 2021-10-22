@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.cardView2.setOnClickListener { startWorkout(WorkoutType.SECOND) }
         binding.cardView3.setOnClickListener { startWorkout(WorkoutType.THIRD) }
 
-        binding.signOutbutton.setOnClickListener {
+        binding.buttonSignOut.setOnClickListener {
             Firebase.auth.signOut()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

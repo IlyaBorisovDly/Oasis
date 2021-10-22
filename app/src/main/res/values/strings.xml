@@ -15,4 +15,7 @@
     <string name="workout_2">Тренировка 2</string>
     <string name="workout_3">Тренировка 3</string>
     <string name="gym_image_description">Изображение тренажёра</string>
+    <string name="workout_description_1">Грудь, бицепс</string>
+    <string name="workout_description_2">Спина, трицепс</string>
+    <string name="workout_description_3">Ноги, плечи</string>
 </resources>
