@@ -1,8 +1,10 @@
 package com.example.oasis.ui.login
 
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -48,12 +50,14 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn(email: String, password: String) {
         val auth = Firebase.auth
 
+        binding.textViewWrongInput.visibility = View.INVISIBLE
+
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                showToast("SignIn failed")
+                binding.textViewWrongInput.visibility = View.VISIBLE
             }
         }
     }

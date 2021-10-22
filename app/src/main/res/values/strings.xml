@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Oasis</string>
+    <string name="choose_workout">Выбери занятие по душе:</string>
     <string name="email">E-mail</string>
     <string name="go_back">Вернуться назад</string>
+    <string name="gym_image_description">Изображение тренажёра</string>
+    <string name="log_out">Выйти из аккаунта</string>
     <string name="login">Войти</string>
     <string name="name">Имя</string>
     <string name="or">ИЛИ</string>
@@ -9,13 +12,11 @@
     <string name="register">Зарегистрироваться</string>
     <string name="registration">Регистрация</string>
     <string name="registration_underlined"><u>Регистрация</u></string>
-    <string name="log_out">Выйти из аккаунта</string>
-    <string name="choose_workout">Выбери занятие по душе:</string>
     <string name="workout_1">Тренировка 1</string>
     <string name="workout_2">Тренировка 2</string>
     <string name="workout_3">Тренировка 3</string>
-    <string name="gym_image_description">Изображение тренажёра</string>
     <string name="workout_description_1">Грудь, бицепс</string>
     <string name="workout_description_2">Спина, трицепс</string>
     <string name="workout_description_3">Ноги, плечи</string>
+    <string name="wrong_login_or_password">Неверный логин или пароль</string>
 </resources>
