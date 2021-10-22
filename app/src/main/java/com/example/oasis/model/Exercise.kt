@@ -6,5 +6,4 @@ data class Exercise(
     val name: String,
     var bestResult: Int,
     var count: Int = 0,
-    var background: Int = R.color.white
 )

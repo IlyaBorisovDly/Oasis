@@ -1,9 +1,17 @@
 package com.example.oasis.ui.workout.adapters
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.TransitionDrawable
+import android.transition.TransitionManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -17,6 +25,7 @@ import com.example.oasis.databinding.InstanceWorkoutButtonBinding
 import com.example.oasis.model.Exercise
 import com.example.oasis.ui.workout.WorkoutActivity
 import kotlinx.coroutines.InternalCoroutinesApi
+import java.util.*
 
 @InternalCoroutinesApi
 class WorkoutAdapter(
@@ -118,8 +127,6 @@ class WorkoutAdapter(
             exerciseCount.text = count
 
             card.setOnClickListener{ onCardClick() }
-
-            fillCardBackground()
         }
 
         fun getExercise() = exercise
@@ -151,20 +158,6 @@ class WorkoutAdapter(
             }
 
             exerciseCount.text = nextCount
-            fillCardBackground()
-        }
-
-        private fun fillCardBackground() {
-            val context = itemView.context
-
-            when (exercise.count) {
-                1 -> exercise.background = R.drawable.background_card_1
-                2 -> exercise.background = R.drawable.background_card_2
-                3 -> exercise.background = R.drawable.background_card_3
-                4 -> exercise.background = R.drawable.background_card_4
-            }
-
-            card.background = AppCompatResources.getDrawable(context, exercise.background)
         }
     }
 }
