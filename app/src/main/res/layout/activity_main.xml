@@ -70,6 +70,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_workout_bench_press" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -114,7 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewWorkout2" />
 
             <ImageView
-                android:id="@+id/imageViewBarbell"
+                android:id="@+id/imageViewSquats"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical|end"
@@ -123,7 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_workout_barbell" />
+                app:srcCompat="@drawable/ic_workout_squats" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,7 +171,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewWorkout3" />
 
             <ImageView
-                android:id="@+id/imageViewBars"
+                android:id="@+id/imageViewDeadlift"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical|end"
@@ -179,7 +180,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_workout_gym_machine" />
+                app:srcCompat="@drawable/ic_workout_deadlift" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

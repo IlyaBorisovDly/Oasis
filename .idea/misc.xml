@@ -57,6 +57,7 @@
         <entry key="app/src/main/res/drawable/ic_google.xml" value="0.30648148148148147" />
         <entry key="app/src/main/res/drawable/ic_ic.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.3101851851851852" />
+        <entry key="app/src/main/res/drawable/ic_squats.xml" value="0.30277777777777776" />
         <entry key="app/src/main/res/drawable/ic_workout_barbell.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_workout_bench_press.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_workout_gym_machine.xml" value="0.3260416666666667" />
@@ -65,7 +66,7 @@
         <entry key="app/src/main/res/drawable/style_button.xml" value="0.16822916666666668" />
         <entry key="app/src/main/res/drawable/style_stroke_black.xml" value="0.3101851851851852" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3214994323365179" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.31105293130528144" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.29314705184592005" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_workout.xml" value="0.335" />
