@@ -19,4 +19,6 @@
     <string name="workout_description_2">Спина, трицепс</string>
     <string name="workout_description_3">Ноги, плечи</string>
     <string name="wrong_login_or_password">Неверный логин или пароль</string>
+    <string name="bench_press">Жим лёжа</string>
+    <string name="finish">Завершить</string>
 </resources>

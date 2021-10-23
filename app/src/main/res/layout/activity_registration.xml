@@ -8,15 +8,15 @@
         android:id="@+id/editTextRegisterName"
         android:layout_width="250dp"
         android:layout_height="48dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="240dp"
+        android:autofillHints="name"
         android:background="@drawable/style_stroke_gray"
         android:ems="10"
         android:hint="@string/name"
-        android:autofillHints="name"
         android:inputType="textPersonName"
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,15 +74,4 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextRegisterName"
         app:layout_constraintStart_toStartOf="@+id/editTextRegisterName" />
 
-    <TextView
-        android:id="@+id/textViewOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/or"
-        android:textColor="@color/gray"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,13 @@
 package com.example.oasis.ui.workout
 
+import android.app.AlertDialog
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityWorkoutBinding
-import com.example.oasis.ui.workout.adapters.WorkoutAdapter
 import kotlinx.coroutines.*
 
 @InternalCoroutinesApi
@@ -42,6 +43,22 @@ class WorkoutActivity : AppCompatActivity() {
         workoutViewModel.exercisesList.observe(this, {
             recyclerView.adapter = WorkoutAdapter(it, listener)
         })
+    }
+
+    override fun onBackPressed() {
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        dialogBuilder
+            .setTitle("Действительно выйти?")
+            .setMessage("Прогресс не будет сохранён")
+            .setCancelable(true)
+            .setNegativeButton("Остаться") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("Выйти") { dialog, _ ->
+                dialog.dismiss()
+                finish()
+            }
+
+        dialogBuilder.show()
     }
 
     private fun getListener(): Listener {

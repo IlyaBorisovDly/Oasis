@@ -1,21 +1,11 @@
-package com.example.oasis.ui.workout.adapters
+package com.example.oasis.ui.workout
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.TransitionDrawable
-import android.transition.TransitionManager
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.oasis.ExerciseBottomSheetDialog
@@ -23,9 +13,7 @@ import com.example.oasis.R
 import com.example.oasis.databinding.InstanceExerciseCardBinding
 import com.example.oasis.databinding.InstanceWorkoutButtonBinding
 import com.example.oasis.model.Exercise
-import com.example.oasis.ui.workout.WorkoutActivity
 import kotlinx.coroutines.InternalCoroutinesApi
-import java.util.*
 
 @InternalCoroutinesApi
 class WorkoutAdapter(
@@ -78,6 +66,7 @@ class WorkoutAdapter(
 
         dialogBuilder
             .setTitle("Закончить тренировку?")
+            .setMessage("Прогресс сохранится")
             .setCancelable(true)
             .setNegativeButton("Отмена") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("Ок") { dialog, _ ->
@@ -107,14 +96,9 @@ class WorkoutAdapter(
         val button: Button = binding.button
     }
 
-    class ExerciseHolder(binding: InstanceExerciseCardBinding): RecyclerView.ViewHolder(binding.root) {
+    class ExerciseHolder(private val binding: InstanceExerciseCardBinding): RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var exercise: Exercise
-
-        private val card = binding.exerciseCardView
-        private val exerciseName: TextView = binding.exerciseNameTextView
-        private val exerciseBestResult: TextView = binding.bestResultTextView
-        private val exerciseCount: TextView = binding.countTextView
 
         fun bind(exercise: Exercise) {
             this.exercise = exercise
@@ -122,11 +106,11 @@ class WorkoutAdapter(
             val bestResult = "${exercise.bestResult} кг."
             val count = "${exercise.count} / 4"
 
-            exerciseName.text = exercise.name
-            exerciseBestResult.text = bestResult
-            exerciseCount.text = count
+            binding.exerciseNameTextView.text = exercise.name
+            binding.bestResultTextView.text = bestResult
+            binding.countTextView.text = count
 
-            card.setOnClickListener{ onCardClick() }
+            binding.exerciseCardView.setOnClickListener{ onCardClick() }
         }
 
         fun getExercise() = exercise
@@ -154,10 +138,10 @@ class WorkoutAdapter(
             if (result > previousBest) {
                 val best = "$result кг"
                 exercise.bestResult = result
-                exerciseBestResult.text = best
+                binding.bestResultTextView.text = best
             }
 
-            exerciseCount.text = nextCount
+            binding.countTextView.text = nextCount
         }
     }
 }

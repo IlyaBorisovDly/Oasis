@@ -3,6 +3,7 @@ package com.example.oasis.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityMainBinding
@@ -34,11 +35,23 @@ class MainActivity : AppCompatActivity() {
         binding.cardView2.setOnClickListener { startWorkout(WorkoutType.SECOND) }
         binding.cardView3.setOnClickListener { startWorkout(WorkoutType.THIRD) }
 
-        binding.buttonSignOut.setOnClickListener {
-            Firebase.auth.signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
+        binding.buttonSignOut.setOnClickListener { showAlertDialog() }
+    }
+
+    private fun showAlertDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        dialogBuilder
+            .setTitle("Выйти из аккаунта?")
+            .setNegativeButton("Остаться") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("Выйти") { dialog, _ ->
+                dialog.dismiss()
+                Firebase.auth.signOut()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+
+        dialogBuilder.show()
     }
 
     private fun startWorkout(workoutType: WorkoutType) {

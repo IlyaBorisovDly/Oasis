@@ -19,9 +19,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 class RegistrationActivity : AppCompatActivity() {
 
-    private lateinit var registrationViewModel: RegistrationViewModel
-
     private lateinit var binding: ActivityRegistrationBinding
+    private lateinit var registrationViewModel: RegistrationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +66,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                val userId = auth.uid ?: "Error"
+                val userId = auth.uid ?: throw NullPointerException("Registration: user id is null")
                 val user = createUser(name, email)
 
                 val repository = Repository()
