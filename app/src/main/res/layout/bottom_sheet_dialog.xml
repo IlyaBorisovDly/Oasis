@@ -11,73 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="400dp">
 
-        <EditText
-            android:id="@+id/resultEditText"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/style_edit_text"
-            android:ems="4"
-            android:gravity="center"
-            android:inputType="numberSigned"
-            android:textColorHint="@color/gray"
-            android:textSize="24sp"
-            android:maxLength="4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
-            android:id="@+id/increaseTextView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/style_stroke_black"
-            android:gravity="center"
-            android:text="+1"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/resultEditText"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/decreaseTextView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/style_stroke_black"
-            android:gravity="center"
-            android:text="-1"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/resultEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
-            android:text="Результат"
+            android:text="@string/result"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/resultEditText"
+            app:layout_constraintBottom_toTopOf="@+id/editTextResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonApply"
-            android:layout_width="115dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="64dp"
-            android:background="@color/black"
-            android:text="Ок"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultEditText" />
 
         <TextView
             android:id="@+id/textViewWarning"
@@ -85,9 +29,68 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textColor="@color/red"
-            app:layout_constraintBottom_toTopOf="@+id/resultEditText"
+            app:layout_constraintBottom_toTopOf="@+id/editTextResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextResult"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/style_edit_text"
+            android:ems="4"
+            android:gravity="center"
+            android:inputType="numberSigned"
+            android:maxLength="4"
+            android:textColorHint="@color/gray"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:id="@+id/textViewIncrease"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/style_stroke_black"
+            android:gravity="center"
+            android:text="@string/plus_one"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editTextResult"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewDecrease"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/style_stroke_black"
+            android:gravity="center"
+            android:text="@string/minus_one"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editTextResult"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonApply"
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="64dp"
+            android:background="@color/black"
+            android:text="@string/ok"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextResult"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

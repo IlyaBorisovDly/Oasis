@@ -14,14 +14,14 @@ class ExerciseBottomSheetDialog(context: Context): BottomSheetDialog(context) {
 
     val applyButton = dialogBinding.buttonApply
 
-    private val resultField = dialogBinding.resultEditText
+    private val resultField = dialogBinding.editTextResult
     private val warningMessage = dialogBinding.textViewWarning
 
     init {
         setContentView(dialogBinding.bottomSheet)
 
-        dialogBinding.decreaseTextView.setOnClickListener { decreaseResult() }
-        dialogBinding.increaseTextView.setOnClickListener { increaseResult() }
+        dialogBinding.textViewDecrease.setOnClickListener { decreaseResult() }
+        dialogBinding.textViewIncrease.setOnClickListener { increaseResult() }
     }
 
     fun getInput() = if (isInputChecked()) resultField.text.toString() else null

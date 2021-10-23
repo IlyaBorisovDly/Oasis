@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Oasis</string>
+    <string name="ok">OK</string>
+    <string name="registration">Registration</string>
+    <string name="registration_underlined"><u>Registration</u></string>
+    <string name="result">Result</string>
+    <string name="workout_1">Workout 1</string>
+    <string name="workout_2">Workout 2</string>
+    <string name="workout_3">Workout 3</string>
+    <string name="workout_description_1">Chest, biceps</string>
+    <string name="workout_description_2">Back, triceps</string>
+    <string name="workout_description_3">Legs, shoulders</string>
+    <string name="wrong_login_or_password">Wrong login or password</string>
+    <string name="bench_press">Bench press</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="login">Sign in</string>
+    <string name="log_out">Log out</string>
+    <string name="gym_image_description">Training machine image</string>
+    <string name="go_back">Go back</string>
+    <string name="finish">Finish workout</string>
+    <string name="choose_workout">Choose today\'s workout</string>
+    <string name="kg">kg.</string>
+    <string name="log_out_warning" tools:ignore="Typos">Wanna log out?</string>
+    <string name="exit">Exit</string>
+    <string name="stay">Stay</string>
+    <string name="exit_message_1">Progress won\'t be saved</string>
+    <string name="exit_message_2">Progress will be saved</string>
+    <string name="exit_warning" tools:ignore="Typos">Wanna exit?</string>
+    <string name="save">Save</string>
+    <string name="finish_warning">Finish workout?</string>
+</resources>

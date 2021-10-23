@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/exerciseNameTextView"
+            android:id="@+id/textViewExerciseName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -25,31 +25,32 @@
             android:text="@string/bench_press"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/bestResultTextView"
+            android:id="@+id/textViewBestResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginTop="4dp"
             android:textColor="@color/gray"
-            app:layout_constraintStart_toStartOf="@+id/exerciseNameTextView"
-            app:layout_constraintTop_toBottomOf="@+id/exerciseNameTextView" />
+            app:layout_constraintStart_toStartOf="@+id/textViewExerciseName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewExerciseName" />
 
         <TextView
-            android:id="@+id/TextViewKg"
+            android:id="@+id/textViewKg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="2dp"
+            android:text="@string/kg"
             android:textColor="@color/gray"
-            app:layout_constraintBottom_toBottomOf="@+id/bestResultTextView"
-            app:layout_constraintStart_toEndOf="@+id/bestResultTextView"
-            app:layout_constraintTop_toTopOf="@+id/bestResultTextView" />
+            app:layout_constraintBottom_toBottomOf="@+id/textViewBestResult"
+            app:layout_constraintStart_toEndOf="@+id/textViewBestResult"
+            app:layout_constraintTop_toTopOf="@+id/textViewBestResult" />
 
         <TextView
-            android:id="@+id/countTextView"
+            android:id="@+id/textViewCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
@@ -61,7 +62,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
+            android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

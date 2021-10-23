@@ -4,13 +4,20 @@ import android.app.Application
 import com.example.oasis.model.Exercise
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
+import kotlin.collections.LinkedHashSet
 
 object JsonReader {
 
     fun getResultsMap(application: Application, workoutType: WorkoutType): Map<String, Int> {
         val resultsMap = mutableMapOf<String, Int>()
 
-        val file = application.assets.open("workouts.json")
+        val file = if (Locale.getDefault().country == "RU") {
+            application.assets.open("workouts.json")
+        } else {
+            application.assets.open("workouts_en.json")
+        }
+
         val text = file.bufferedReader().use { it.readText() }
         val array = JSONArray(text)
 
@@ -45,7 +52,13 @@ object JsonReader {
 
     private fun getOrderSet(application: Application, workoutType: WorkoutType): LinkedHashSet<String> {
         val set = linkedSetOf<String>()
-        val file = application.assets.open("workouts.json")
+
+        val file = if (Locale.getDefault().country == "RU") {
+            application.assets.open("workouts.json")
+        } else {
+            application.assets.open("workouts_en.json")
+        }
+
         val text = file.bufferedReader().use { it.readText() }
         val array = JSONArray(text)
 

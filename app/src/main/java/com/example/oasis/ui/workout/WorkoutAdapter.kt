@@ -65,11 +65,11 @@ class WorkoutAdapter(
         val dialogBuilder = AlertDialog.Builder(context)
 
         dialogBuilder
-            .setTitle("Закончить тренировку?")
-            .setMessage("Прогресс сохранится")
+            .setTitle(R.string.finish_warning)
+            .setMessage(R.string.exit_message_2)
             .setCancelable(true)
-            .setNegativeButton("Отмена") { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton("Ок") { dialog, _ ->
+            .setNegativeButton(R.string.stay) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.save) { dialog, _ ->
                 uploadBestResults()
                 dialog.dismiss()
                 (context as Activity).finish()
@@ -103,12 +103,11 @@ class WorkoutAdapter(
         fun bind(exercise: Exercise) {
             this.exercise = exercise
 
-            val bestResult = "${exercise.bestResult} кг."
             val count = "${exercise.count} / 4"
 
-            binding.exerciseNameTextView.text = exercise.name
-            binding.bestResultTextView.text = bestResult
-            binding.countTextView.text = count
+            binding.textViewExerciseName.text = exercise.name
+            binding.textViewBestResult.text = exercise.bestResult.toString()
+            binding.textViewCount.text = count
 
             binding.exerciseCardView.setOnClickListener{ onCardClick() }
         }
@@ -136,12 +135,11 @@ class WorkoutAdapter(
             val nextCount = "${++exercise.count} / 4"
 
             if (result > previousBest) {
-                val best = "$result кг"
                 exercise.bestResult = result
-                binding.bestResultTextView.text = best
+                binding.textViewBestResult.text = result.toString()
             }
 
-            binding.countTextView.text = nextCount
+            binding.textViewCount.text = nextCount
         }
     }
 }

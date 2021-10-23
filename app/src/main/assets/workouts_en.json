@@ -1,0 +1,38 @@
+[
+{
+	"workoutId" : 1,
+	"exercises" : [
+		{"name" : "Bench press"},
+		{"name" : "Incline bench press"},
+		{"name" : "Dumbbells' flyes"},
+		{"name" : "Bringing hands together in crossover"},
+		{"name" : "Bicep curls"},
+		{"name" : "Reverse bicep curls"},
+		{"name" : "Dumbbell curls while sitting"}
+	]
+},
+{
+	"workoutId" : 2,
+	"exercises" : [
+		{"name" : "Back squats"},
+		{"name" : "Sit ups in exercise machine"},
+		{"name" : "Leg extensions"},
+		{"name" : "Calves"},
+		{"name" : "Overhead press"},
+		{"name" : "Shoulder press"},
+		{"name" : "Arnold press"}
+	]
+},
+{
+	"workoutId" : 3,
+	"exercises" : [
+		{"name" : "Dead lifts"},
+		{"name" : "Pull ups"},
+		{"name" : "Upper block pulls"},
+		{"name" : "Lower block pulls"},
+		{"name" : "Dips"},
+		{"name" : "Skull crushers"},
+		{"name" : "Press down"}
+	]
+}
+]

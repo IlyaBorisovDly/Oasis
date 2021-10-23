@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.oasis.R
 import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityMainBinding
 import com.example.oasis.ui.login.LoginActivity
@@ -42,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         val dialogBuilder = AlertDialog.Builder(this)
 
         dialogBuilder
-            .setTitle("Выйти из аккаунта?")
-            .setNegativeButton("Остаться") { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton("Выйти") { dialog, _ ->
+            .setTitle(R.string.log_out_warning)
+            .setNegativeButton(R.string.stay) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.exit) { dialog, _ ->
                 dialog.dismiss()
                 Firebase.auth.signOut()
                 startActivity(Intent(this, LoginActivity::class.java))

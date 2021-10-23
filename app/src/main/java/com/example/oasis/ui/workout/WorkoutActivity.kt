@@ -1,11 +1,11 @@
 package com.example.oasis.ui.workout
 
 import android.app.AlertDialog
-import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oasis.R
 import com.example.oasis.WorkoutType
 import com.example.oasis.databinding.ActivityWorkoutBinding
 import kotlinx.coroutines.*
@@ -49,11 +49,11 @@ class WorkoutActivity : AppCompatActivity() {
         val dialogBuilder = AlertDialog.Builder(this)
 
         dialogBuilder
-            .setTitle("Действительно выйти?")
-            .setMessage("Прогресс не будет сохранён")
+            .setTitle(R.string.exit_warning)
+            .setMessage(R.string.exit_message_1)
             .setCancelable(true)
-            .setNegativeButton("Остаться") { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton("Выйти") { dialog, _ ->
+            .setNegativeButton(R.string.stay) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.exit) { dialog, _ ->
                 dialog.dismiss()
                 finish()
             }
