@@ -2,7 +2,7 @@
 
 ## About
 
-Oasis is a simple gym progress-tracking app built on MVVM architecture. 
+Oasis is a simple gym progress-tracking app based on MVVM pattern. 
 
 ## Built with
 - Kotlin
